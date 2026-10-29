@@ -1,9 +1,14 @@
+![MQTT-RFID Demonstration](images/setup.jpg)
+
+### Description:
+- **RFID/MFRC522 -> ESP32:** Local UID authentication against stored whitelists.
+- **ESP32 -> MQTT Broker:** Real-time access logging over Wi-Fi, and data queuing for offline situations[cite: 11].
 # ESP32 Smart Access Control System with Offline Support
 
 An IoT-based RFID Access Control system built with an ESP32 (WROOM-DA) microcontroller, MFRC522 RFID reader, EEPROM memory emulation, and MQTT protocol integration. It features robust offline capabilities, allowing local access decisions and event queuing even when the internet connection is lost.
 
 ---
-
+![MQTT-RFID Demonstration](images/real.jpg)
 ## 🚀 Key Features
 
 ### A. RFID Management
@@ -26,20 +31,21 @@ An IoT-based RFID Access Control system built with an ESP32 (WROOM-DA) microcont
 * Connects to standard MQTT brokers to publish access logs (`ACCESS_GRANTED` / `ACCESS_DENIED`).
 * Background reconnection handler using `millis()` to prevent CPU blocking.
 * **Offline Support:** Automatically stores access events in a RAM-based queue if the network is down, and syncs/publishes pending events back to the server once connection is restored.
+![MQTT-RFID Demonstration](images/messagetomqtt.png)
 
 ### E. System Reliability
 * **Local-First Architecture:** Door access control operates instantly via local EEPROM checks, regardless of Wi-Fi or MQTT availability.
 * Robust error handling and logging via Serial Monitor.
 
 ---
-
+![MQTT-RFID Demonstration](images/accesscontrol.png)
 ## 📐 Data Structure & EEPROM Memory Map
 
 * **Address `0` (1 Byte):** Total number of saved cards (`numCards`).
 * **Address `1` onwards (5 Bytes per card):**
   * **Byte 0 (1 Byte):** Card UID size (`uid.size`).
   * **Bytes 1 to 4 (4 Bytes):** Card UID byte values (`uid.uidByte`).
-
+![MQTT-RFID Demonstration](images/enrollanddelete.png)
 ---
 
 ## 🔌 Connection Diagram (Pinout)
